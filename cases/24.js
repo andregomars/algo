@@ -10,6 +10,23 @@ You may not modify the values in the list's nodes, only nodes itself may be chan
 Example:
 
 Given 1->2->3->4, you should return the list as 2->1->4->3.
+
+
+1-2-3-4
+
+1.next=2.next
+2.next=1
+=> 2-1-3-4
+
+1.next=4
+3.next=4.next
+4.next=3
+=> 2-1-4-3
+
+h.next = b
+a.next=b.next
+b.next=a
+
 */
 
 /**
@@ -19,57 +36,72 @@ Given 1->2->3->4, you should return the list as 2->1->4->3.
  *     this.next = (next===undefined ? null : next)
  * }
  */
+
+function ListNode(val, next) {
+    this.val = (val===undefined ? 0 : val)
+    this.next = (next===undefined ? null : next)
+}
+
 /**
  * @param {ListNode} head
  * @return {ListNode}
  */
 var swapPairs = function(head) {
+  head = new ListNode(null, head)
   if (!head.next || !head.next.next) {
-    return head;
+    return head.next;
   }
 
-  var helper = function(a, b) {
-    const temp = a;
-    a.next = b.next;
-    b.next = temp.next;
+  var helper = function(pre, a, b) {
+    pre.next = b
+    a.next=b.next
+    b.next=a
 
-    if (temp.next && temp.next.next) {
-      helper(temp.next, temp.next.next);
+    if (a.next && a.next.next) {
+      helper(a, a.next, a.next.next);
     }
   }
 
-  helper(head.next, head.next.next);
-  return head;
+  helper(head, head.next, head.next.next);
+  return head.next;
 }
 
 var test = function() {
+  const head = arrayToLinked([1,2,3,4]);
 
-  function ListNode(val, next) {
-      this.val = (val===undefined ? 0 : val)
-      this.next = (next===undefined ? null : next)
-  }
-
-  function printVals(head) {
-    var cur = head;
-    var vals = [];
-    while(cur.next) {
-      vals.push(cur.next.val)
-      cur = cur.next;
-    }
-    console.log(vals)
-  }
-
-  const n4 = new ListNode(4, null);
-  const n3 = new ListNode(3, n4);
-  const n2 = new ListNode(2, n3);
-  const n1 = new ListNode(1, n2);
-  const head = new ListNode(null, n1);
-
-  printVals(head)
+  console.log('head values', linkedToArray(head));
 
   const ret = swapPairs(head);
-  printVals(ret)
+  console.log(linkedToArray(ret));
 
 }
 
-module.exports = test;
+var arrayToLinked = function(arr) {
+  if (!arr || arr.length < 1) return null;
+
+  let head = new ListNode(arr[0], null);
+  if (arr.length === 1) return head;
+
+  let cur = head;
+  for (let k of arr.slice(1)) {
+    cur.next = new ListNode(k, null);
+    cur = cur.next;
+  }
+
+  return head;
+};
+
+var linkedToArray = function(head) {
+  var vals = [];
+  while(head) {
+    vals.push(head.val)
+    head = head.next;
+  }
+  return vals;
+};
+
+module.exports.test = test;
+module.exports.ListNode = ListNode;
+module.exports.arrayToLinked = arrayToLinked;
+module.exports.linkedToArray = linkedToArray;
+module.exports.swapPairs = swapPairs;

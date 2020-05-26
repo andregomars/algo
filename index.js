@@ -1,3 +1,3 @@
-var test = require('./cases/24.js');
+var { test } = require('./cases/24');
 
 test();
