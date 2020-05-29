@@ -1,3 +1,3 @@
-var { test } = require('./cases/1');
+var { test } = require('./cases/547');
 
 test();
