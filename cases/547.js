@@ -44,20 +44,18 @@ If M[i][j] = 1, then M[j][i] = 1.
 // }
 
 var findCircleNum = function (M) {
-    let dict = {};
+    const len = M.length;
+    const dict = {};
 
-    for (let i = 0; i < M.length; i++) {
-        if (dict[i] === undefined) dict[i] = i;
-        for (let j = i; j < M[i].length; j++) {
-            if (i !== j && M[i][j] === 1) {
-                dict[j] = dict[i];
-            }
-        }
+    for (let i = 0; i < len; i++) {
+        dict[i] = i;
     }
 
-    const vals = Object.values(dict);
-    const groups = new Set(vals);
-    return [...groups].length;
+    for (let j = 0; j < len; j++) {
+        dict[j] = union(find(dict[j], j);
+    }
+
+
 
 };
 
