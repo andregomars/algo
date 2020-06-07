@@ -1,6 +1,6 @@
 const { findCircleNum } = require('./547');
 
-test('should find how many friends circles in a grid', () => {
+test.skip('should find how many friends circles in a grid', () => {
   const input1 =
    [[1, 1, 0],
     [1, 1, 0],

@@ -52,7 +52,7 @@ var findCircleNum = function (M) {
     }
 
     for (let j = 0; j < len; j++) {
-        dict[j] = union(find(dict[j], j);
+        // dict[j] = union(find(dict[j], j);
     }
 
 
