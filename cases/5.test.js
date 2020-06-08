@@ -1,4 +1,4 @@
-const { longestPalindrome} = require('./5');
+const { longestPalindrome } = require('./5');
 
 test('should find out longest panlindrom', () => {
   expect(longestPalindrome('babad')).toEqual('aba');
